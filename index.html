@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="app.css" tyle="">
+    <title>Number Fact App</title>
+</head>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        margin-top: 5em;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .section {
+        padding: 2em;
+    }
+
+    #fact {
+        display: none;
+    }
+
+    #factText {
+        color: #fff;
+    }
+
+    #author {
+        margin-top: 50%;
+    }
+
+    .author {
+        color: #bdbdbd;
+        padding-top: 5em;
+        font-size: 14px;
+        text-shadow: rgba(255, 255, 255, .5) 0 1px 0;
+    }
+
+    .info-heading {
+        font-weight: 900;
+        text-shadow: rgba(255, 255, 255, .5) 0 1px 0;
+    }
+
+    .info-sub {
+        font-weight: 100;
+        color: #757575;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card-panel z-depth-2 collection hoverable">
+                    <h3 class="center-align info-heading">Number Fact</h3>
+                    <p class="center-align info-sub">Discover what numbers can tell you.</p>
+                    <input id="input_number" type="number" placeholder="Enter any number...">
+                    <div id="fact" class="card-panel grey lighten-2">
+                        <p id="factText""></p>
+                    </div>
+                    
+                </div>
+                <div class=" section">
+                            <p class="center-align author">Created by jlargo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let fact = document.querySelector('#fact');
+            let factText = document.querySelector('#factText');
+
+            let inputNumber = document.querySelector('#input_number');
+            inputNumber.addEventListener('input', getNumberFacts);
+
+            function getNumberFacts() {
+                let number = inputNumber.value;
+
+                fetch('http://numbersapi.com/' + number)
+                    .then(response => response.text())
+                    .then(data => {
+                        if (number != "") {
+                            fact.style.display = 'block';
+                            fact.innerText = data;
+                            console.log(data);
+                        }
+                    })
+                    .catch(err => console.log(err));
+            }        
+        </script>
+</body>
+
+</html>
